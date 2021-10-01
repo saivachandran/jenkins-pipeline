@@ -1,30 +1,9 @@
 pipeline {
-    
-    agent any
-    
+    agent { docker 'maven:3-alpine' } 
     stages {
-        
-        stage ('build') {
-            
+        stage('Build the application') {
             steps {
-                
-                echo 'build the application'
-            }
-        }
-        
-        stage ('test') {
-            
-            steps {
-                
-                echo 'test the application'
-            }
-        }
-        
-        stage ('deploy') {
-            
-            steps {
-                
-                echo 'deploy the application'
+                sh 'mvn -B clean verify'
             }
         }
     }
