@@ -4,12 +4,24 @@ pipeline {
     
     stages {
         
-        stage ('stage1') {
+        stage ('SCM Checkout') {
             
             steps {
-                
-                echo 'Hello World'
-            }
+            
+               git branch: 'main', url: 'https://github.com/saivachandran/ansible-projects'
         }
+            
+        }
+        
+         stage ('Execute ansible playbook') {
+             
+            steps {
+            
+               ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'apache2.yml'
+        }
+            
+        }
+        
+        
     }
 }
