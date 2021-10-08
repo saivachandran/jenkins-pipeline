@@ -1,15 +1,15 @@
 pipeline {
-    
     agent any
-    
     stages {
-        
-        stage ('stage1') {
-            
+        stage('Deploy') {
             steps {
-                
-                echo 'Hello World'
+                sshagent(['slave-machine']) {
+                    // some block
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.87.187.47"
+                    sh "whoami"
+                }
             }
         }
     }
 }
+
